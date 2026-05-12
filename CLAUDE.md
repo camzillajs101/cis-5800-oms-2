@@ -72,7 +72,7 @@ export default function ProductCard({ product }: { product: Product }) {
 The system uses the following core entities:
 
 **Customers**
-- customer_id (PK), first_name, last_name, email, password_hash, phone
+- customer_id (PK), first_name, last_name, email, password_hash, phone, is_admin
 - created_at, updated_at
 
 **Addresses**
