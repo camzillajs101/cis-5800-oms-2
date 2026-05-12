@@ -1,10 +1,15 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { auth } from '@/lib/auth/server';
 
-export default function proxy(req: NextRequest) {
-  return NextResponse.next();
-}
+export default auth.middleware({
+  // Redirects unauthenticated users to sign-in page
+  loginUrl: '/auth/sign-in',
+});
 
 export const config = {
-  matcher: ['/admin/:path*', '/account/:path*'],
+  matcher: [
+    // Protected routes requiring authentication
+    '/profile/:path*',
+    '/account/:path*',
+    '/admin/:path*',
+  ],
 };

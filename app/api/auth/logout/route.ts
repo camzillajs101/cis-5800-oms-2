@@ -1,24 +1,21 @@
-// app/api/auth/logout/route.ts
-// POST /api/auth/logout
-// Clears the session cookie.
-
+import { auth } from '@/lib/auth/server';
 import { NextResponse } from 'next/server';
 
-const COOKIE_NAME = 'oms_session';
-
 export async function POST() {
-  const response = NextResponse.json(
-    { success: true, data: null, error: null },
-    { status: 200 }
-  );
-
-  response.cookies.set(COOKIE_NAME, '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 0, // immediately expire
-    path: '/',
-  });
-
-  return response;
+  try {
+    await auth.signOut();
+    return NextResponse.json(
+      { success: true, data: null, error: null },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        data: null,
+        error: error instanceof Error ? error.message : 'Internal server error',
+      },
+      { status: 500 }
+    );
+  }
 }
