@@ -63,57 +63,93 @@ export default async function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center py-32 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-5xl font-bold text-slate-900 dark:text-white mb-6">
-            Welcome to OMS Store
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 mb-8">
-            Your complete online order management system
+      {/* Hero Section */}
+      <section className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold mb-4">Welcome to OMS Store</h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Discover amazing products at great prices. Shop now and enjoy fast
+            shipping and excellent customer service.
           </p>
-
-          {user ? (
-            <div className="space-y-4">
-              <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow">
-                <p className="text-lg text-slate-700 dark:text-slate-300 mb-4">
-                  Welcome back, <span className="font-semibold">{user.name || user.email}</span>
-                </p>
-                <div className="flex gap-4 justify-center">
-                  <Link
-                    href="/profile"
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    View Profile
-                  </Link>
-                  {user.role === 'admin' && (
-                    <Link
-                      href="/admin"
-                      className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                    >
-                      Go to Dashboard
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex gap-4 justify-center">
-              <Link
-                href="/auth/sign-up"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-lg font-medium"
-              >
-                Get Started
-              </Link>
-              <Link
-                href="/auth/sign-in"
-                className="px-8 py-4 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-lg font-medium"
-              >
-                Sign In
-              </Link>
-            </div>
-          )}
+          <Link
+            href="/shop"
+            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100"
+          >
+            Start Shopping
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Featured Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center">Featured Products</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow text-center">
+              <div className="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                <span className="text-gray-500">Product Image</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Product 1</h3>
+              <p className="text-gray-600 mb-4">$99.99</p>
+              <Link
+                href="/shop"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                View Details
+              </Link>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow text-center">
+              <div className="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                <span className="text-gray-500">Product Image</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Product 2</h3>
+              <p className="text-gray-600 mb-4">$149.99</p>
+              <Link
+                href="/shop"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                View Details
+              </Link>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow text-center">
+              <div className="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                <span className="text-gray-500">Product Image</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Product 3</h3>
+              <p className="text-gray-600 mb-4">$79.99</p>
+              <Link
+                href="/shop"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                View Details
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-12 bg-blue-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-6">
+            Ready to start shopping?
+          </h2>
+          <Link
+            href="/shop"
+            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100"
+          >
+            Browse All Products
+          </Link>
+        </div>
+      </section>
+      
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="text-center text-gray-400">
+            © 2026 OMS Store. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
