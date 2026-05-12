@@ -1,25 +1,68 @@
 import Link from 'next/link';
+import { auth } from '@/lib/auth/server';
 
-export default function Home() {
+// Server components using auth methods must be rendered dynamically
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const { data: session } = await auth.getSession();
+  const user = session?.user;
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold">OMS Store</div>
-            <div className="flex gap-6">
-              <Link href="/login" className="hover:text-gray-600">
-                Sign In
-              </Link>
-              <Link href="/signup" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Sign Up
-              </Link>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      {/* Header */}
+      <header className="bg-white dark:bg-slate-800 shadow">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            OMS Store
+          </h1>
+          <div className="flex gap-4">
+            {user ? (
+              <>
+                <Link
+                  href="/profile"
+                  className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  Profile
+                </Link>
+                {user.role === 'admin' && (
+                  <Link
+                    href="/admin"
+                    className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    Admin
+                  </Link>
+                )}
+                <form action="/api/auth/logout" method="POST">
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/auth/sign-in"
+                  className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/sign-up"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
+      {/* Main Content */}
       {/* Hero Section */}
       <section className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
@@ -99,8 +142,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
-      {/* Footer */}
+      
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-7xl mx-auto px-4">
           <p className="text-center text-gray-400">
